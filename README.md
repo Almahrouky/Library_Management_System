@@ -5,7 +5,7 @@ The library management system is a simple application designed to manage
 the library books and members and operations like adding a book, borrow a book,
 return a book. It follows the principles of Object-Oriented-Programming (OOP)
 to make the code moduler, scalable and maintainable.
-- 
+
 https://github.com/user-attachments/assets/54e3bebb-e7ae-449e-9cc0-ddecafd1ae57
 
 ## Features
