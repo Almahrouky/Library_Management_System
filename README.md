@@ -11,10 +11,10 @@ https://github.com/user-attachments/assets/54e3bebb-e7ae-449e-9cc0-ddecafd1ae57
 ## Features
 - Graphical-User-Interface (GUI)
 - Book management
-  - add book, borrow book and return book
+  - add a book, borrow a book and return a book
 - Member management
-  - add member
-- Search for book or member
+  - add a member
+- Search for a book or a member
 - Keep track of the executed transactions
 
 ## Technologies Used
