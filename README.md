@@ -35,9 +35,11 @@ For this database, I've chosen the following entities and their attributes:
 - book_name (string)
 - author_name (string)
 - copies (integer)
+
 For this database, I used the types:
 - integer: to represent numbers such as id and copies.
 - string: to represent names such as user name, staff name, book name, author name, and password (as it may include characters and digits).
+
 And also used constraints:
 - primary key: for the id to be unique for each row in the table.
 - not null: for name and password to avoid wrong login.
