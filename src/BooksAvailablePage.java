@@ -50,6 +50,8 @@ public class BooksAvailablePage extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        refreshButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        refreshButton.setForeground(new java.awt.Color(51, 102, 255));
         refreshButton.setText("Refresh");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +59,8 @@ public class BooksAvailablePage extends javax.swing.JFrame {
             }
         });
 
+        closeButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        closeButton.setForeground(new java.awt.Color(255, 51, 51));
         closeButton.setText("Close");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -50,6 +50,7 @@ public class loginPage extends javax.swing.JFrame {
             }
         });
 
+        loginButton.setBackground(new java.awt.Color(51, 102, 255));
         loginButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -59,6 +60,7 @@ public class loginPage extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Mongolian Baiti", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Login");
 
