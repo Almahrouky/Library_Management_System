@@ -11,12 +11,12 @@ import javax.swing.*;
  *
  * @author EL-BOSTAN
  */
-public class removeBookPage extends javax.swing.JFrame {
+public class removeUserPage extends javax.swing.JFrame {
 
     /**
-     * Creates new form removeBookPage
+     * Creates new form removeUserPage
      */
-    public removeBookPage() {
+    public removeUserPage() {
         initComponents();
     }
 
@@ -30,7 +30,7 @@ public class removeBookPage extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        bookInfo = new javax.swing.JTextField();
+        staffInfo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -38,11 +38,11 @@ public class removeBookPage extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Enter the book id or the book name");
+        jLabel1.setText("Enter the User id or the User name");
 
-        bookInfo.addActionListener(new java.awt.event.ActionListener() {
+        staffInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bookInfoActionPerformed(evt);
+                staffInfoActionPerformed(evt);
             }
         });
 
@@ -71,7 +71,7 @@ public class removeBookPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bookInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(staffInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -87,7 +87,7 @@ public class removeBookPage extends javax.swing.JFrame {
                 .addGap(87, 87, 87)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bookInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(staffInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -98,13 +98,13 @@ public class removeBookPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bookInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookInfoActionPerformed
+    private void staffInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_staffInfoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bookInfoActionPerformed
-    
+    }//GEN-LAST:event_staffInfoActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String info = bookInfo.getText();
+        String info = staffInfo.getText();
         try {
             Connection connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/library_management_system",
@@ -115,7 +115,7 @@ public class removeBookPage extends javax.swing.JFrame {
             // try one with book id and one with book name
             
             String query1 = """
-                            select * from books
+                            select * from user
                             where id = ?;
                             """;
             PreparedStatement statement = connection.prepareStatement(query1);
@@ -124,86 +124,36 @@ public class removeBookPage extends javax.swing.JFrame {
             ResultSet result1 = statement.executeQuery();
             
             if(result1.next()){
-                String queryT = """
-                                select copies from books
-                                where id = ?;
-                                """;
-                statement = connection.prepareStatement(queryT);
+                
+                query1 = """
+                        delete from user
+                        where id = ?;
+                        """;
+                statement = connection.prepareStatement(query1);
                 statement.setString(1, info); // index (1-based), value
-                
-                ResultSet resultT = statement.executeQuery();
-                int copiesNum = 0;
-                while(resultT.next()){
-                    copiesNum = Integer.parseInt(resultT.getString("copies"));
-                }
-                
-                if(copiesNum == 1){
-                    query1 = """
-                        delete from books
-                        where id = ?;
-                        """;
-                    statement = connection.prepareStatement(query1);
-                    statement.setString(1, info); // index (1-based), value
 
-                    int result2 = statement.executeUpdate();
-                }
-                else{
-                    query1 = """
-                        update books
-                        set copies = ?
-                        where id = ?;
-                        """;
-                    statement = connection.prepareStatement(query1);
-                    statement.setString(1, Integer.toString(copiesNum - 1)); // index (1-based), value
-                    statement.setString(2, info); // index (1-based), value
-                    int result2 = statement.executeUpdate();
-                }
+                int result2 = statement.executeUpdate();
+                
             }else{
                 String query = """
-                            select * from books
-                            where book_name = ?;
+                            select * from user
+                            where username = ?;
                             """;
                 statement = connection.prepareStatement(query);
                 statement.setString(1, info); // index (1-based), value
 
                 ResultSet result = statement.executeQuery();
                 if(result.next()){
-                    String queryT = """
-                                select copies from books
-                                where book_name = ?;
-                                """;
-                    statement = connection.prepareStatement(queryT);
+                    query1 = """
+                        delete from user
+                        where username = ?;
+                        """;
+                    statement = connection.prepareStatement(query1);
                     statement.setString(1, info); // index (1-based), value
 
-                    ResultSet resultT = statement.executeQuery();
-                    int copiesNum = 0;
-                    while(resultT.next()){
-                        copiesNum = Integer.parseInt(resultT.getString("copies"));
-                    }
-
-                    if(copiesNum == 1){
-                        query1 = """
-                            delete from books
-                            where book_name = ?;
-                            """;
-                        statement = connection.prepareStatement(query1);
-                        statement.setString(1, info); // index (1-based), value
-
-                        int result2 = statement.executeUpdate();
-                    }
-                    else{
-                        query1 = """
-                            update books
-                            set copies = ?
-                            where book_name = ?;
-                            """;
-                        statement = connection.prepareStatement(query1);
-                        statement.setString(1, Integer.toString(copiesNum - 1)); // index (1-based), value
-                        statement.setString(2, info); // index (1-based), value
-                        int result2 = statement.executeUpdate();
-                    }
+                    int result2 = statement.executeUpdate();
                 }else{
-                    JOptionPane.showMessageDialog(this, "This book not found");
+                    JOptionPane.showMessageDialog(this, "This user not found");
                 }
                 result.close();
             }
@@ -215,7 +165,7 @@ public class removeBookPage extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -240,28 +190,28 @@ public class removeBookPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(removeBookPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(removeUserPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(removeBookPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(removeUserPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(removeBookPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(removeUserPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(removeBookPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(removeUserPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new removeBookPage().setVisible(true);
+                new removeUserPage().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bookInfo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField staffInfo;
     // End of variables declaration//GEN-END:variables
 }

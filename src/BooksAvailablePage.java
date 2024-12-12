@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Date;
+import java.util.Calendar;
 /**
  *
  * @author EL-BOSTAN
@@ -39,13 +41,13 @@ public class BooksAvailablePage extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Book ID", "Book Name", "Book Author", "Copies"
+                "Book ID", "ISBN", "Book Name", "Author Name", "Publication Year", "Copies"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -73,15 +75,15 @@ public class BooksAvailablePage extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(117, 117, 117))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +111,7 @@ public class BooksAvailablePage extends javax.swing.JFrame {
             );
 						
             String query = """
-                select * from books;
+                select * from book where copies > 0;
             """;
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -120,11 +122,15 @@ public class BooksAvailablePage extends javax.swing.JFrame {
             
             while (result.next()) {
                 int id = result.getInt("id");
+                String ISBN = result.getString("ISBN");
                 String book_name = result.getString("book_name");
                 String author_name = result.getString("author_name");
+                Date date = result.getDate("publication_year");
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                Integer year = calendar.get(Calendar.YEAR);
                 int copies = result.getInt("copies");
-                
-                model.addRow(new Object[] {id, book_name, author_name, copies});
+                model.addRow(new Object[] {id, ISBN, book_name, author_name, year, copies});
             }
 
             result.close();
