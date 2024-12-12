@@ -2,21 +2,21 @@
 ## Overview
 The library management system is a simple application for managing library books and users.  
 The library has a GUI to make things easy.  
-The library offers some privilages for admin users such as see all users, delete a user and show all transactions.  
+The library offers some privileges for admin users such as seeing all users, deleting a user, and showing all transactions.  
 The library has a database to store users and books and ensure data security.  
 ## Features
 - Graphical-User-Interface (GUI)
 - Book management
-	- show avilable books, borrow a book and return a book.
+	- show available books, borrow a book, and return a book.
 - user management
 	- sign up a new user.
-- admin privilages
-	- add a new book, show all users show all transactions and delete a user.
+- admin privileges
+	- add a new book, show all users show all transactions, and delete a user.
 ## Database
 ### Scope
-- The purpose of this database is to manage and speed up the operations on the library.
+- The purpose of this database is to manage and speed up the operations of the library.
 ### Functional Requirements
-- A user can see the books, borrow a book and return a book.
+- A user can see the books, borrow a book, and return a book.
 #### Entities
 For this database, I've chosen the following entities and their attributes:
 ##### 1- user
@@ -41,11 +41,11 @@ For this database, I've chosen the following entities and their attributes:
 - string: to represent names such as username, book_name, and password (as it may include characters and digits).
 ##### And also used constraints:
 - primary key: for the id to be unique for each row in the table.
-- auto_increment: to automaticly give the new row a unique number specifically it increments the number by one for every new row.
-- not null: for username, password and type to avoid wrong login and for ISBN, book_name and copies to identify the book, etc.
+- auto_increment: to automatically give the new row a unique number specifically it increments the number by one for every new row.
+- not null: for username, password, and type to avoid wrong login and for ISBN, book_name, and copies to identify the book, etc.
 #### Relationships
 ![ER Diagram](images/ER%20Diagram.png)  
-- The relationship between user and book is that user can borrow zero or more books and user can return zero or more books.
+- The relationship between the user and the book is that the user can borrow zero or more books and the user can return zero or more books.
 - The relationship between book and user is that a book can be borrowed by one user and a book can be returned by one user. 
 #### Optimizations
 - indexing: for username, password, type, ISBN, etc. to speed up these queries.
