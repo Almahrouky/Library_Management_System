@@ -1,11 +1,9 @@
 # Library-Management-System
 ## Overview
-The library management system is a simple application designed to manage  
-the library books and users.  
+The library management system is a simple application for managing library books and users.  
 The library has a GUI to make things easy.  
 The library offers some privilages for admin users such as see all users, delete a user and show all transactions.  
-The library has a database to store users and books and ensure  
-the security of the data.  
+The library has a database to store users and books and ensure data security.  
 ## Features
 - Graphical-User-Interface (GUI)
 - Book management
